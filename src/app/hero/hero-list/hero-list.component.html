@@ -1,3 +1,4 @@
-<p>
-  hero-list works!
-</p>
+<ul class="list" *ngIf="heroes$ | async as heroes">
+  {{heroes | json}}
+  <!-- <li *ngFor="let hero of heroes.list">{{hero | json}}</li> -->
+</ul>
