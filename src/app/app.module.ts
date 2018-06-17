@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -10,12 +11,14 @@ import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
 import { HeroListComponent } from './hero/hero-list/hero-list.component';
 import { heroReducer } from './hero/hero.reducer';
 import { HeroService } from './hero/hero.service';
+import { IterateObjectPipe } from './iterate-object.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HeroDetailComponent, HeroListComponent],
+  declarations: [AppComponent, HeroDetailComponent, HeroListComponent, IterateObjectPipe],
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({
       hero: heroReducer,
     }),

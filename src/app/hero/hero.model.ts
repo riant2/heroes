@@ -1,4 +1,4 @@
 export interface HeroModel {
-  _id: string;
+  _id?: string;
   name: string;
 }
