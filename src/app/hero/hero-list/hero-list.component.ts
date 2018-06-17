@@ -15,13 +15,15 @@ export class HeroListComponent implements OnInit {
   public heroForm: FormGroup;
 
   public factions: string[] = ['shadow', 'abyss', 'fortress', 'forest', 'light', 'dark'];
+  public classes: string[] = ['warrior', 'mage', 'priest', 'ranger', 'assassin'];
 
   constructor(private heroService: HeroService, private fb: FormBuilder) {
     this.heroForm = fb.group({
       __v: 0,
       _id: '',
       name: ['', Validators.required],
-      // faction: ['', Validators.required],
+      faction: '',
+      class: '',
       skills: fb.array([]),
       stats: fb.group({
         attack: [0, Validators.min(10)],
@@ -57,7 +59,8 @@ export class HeroListComponent implements OnInit {
     }
   };
 
-  select = (hero: HeroModel) => this.heroForm.setValue(hero);
+  select = (hero: HeroModel) =>
+    this.heroForm.setValue({ ...hero, faction: hero.faction || '', class: hero.class || '' });
 
   delete = (heroId: string) => this.heroService.delete(heroId);
 }

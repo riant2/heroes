@@ -6,11 +6,16 @@
           <span>name</span>
         </div>
       </th>
-      <!-- <th class="rotate hundreds">
+      <th class="rotate hundreds">
         <div>
           <span>faction</span>
         </div>
-      </th> -->
+      </th>
+      <th class="rotate hundreds">
+        <div>
+          <span>class</span>
+        </div>
+      </th>
       <th class="rotate thousands">
         <div>
           <span>attack</span>
@@ -82,7 +87,12 @@
   <tbody>
     <tr *ngFor="let hero of heroes.list | iterateObject" (click)="select(hero)">
       <td>{{hero.name}}</td>
-      <!-- <td>{{hero.faction}}</td> -->
+      <td>
+        <img src="assets/img/{{hero.faction}}.png" *ngIf="hero.faction">
+      </td>
+      <td>
+        <img src="assets/img/{{hero.class}}.png" *ngIf="hero.class">
+      </td>
       <td>{{hero.stats.attack}}</td>
       <td>{{hero.stats.health}}</td>
       <td>{{hero.stats.armor}}</td>
@@ -97,14 +107,16 @@
       <td>{{hero.stats.reduceDamage}}</td>
       <td>{{hero.stats.holyDamage}}</td>
       <td>
-        <button class="float-right" (click)="delete(hero._id)">
+        <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fa fa-remove" aria-hidden="true"></i>
         </button>
       </td>
     </tr>
     <tr *ngIf="heroes.new as hero">
       <td>{{hero.name}}</td>
-      <!-- <td>{{hero.faction || 'Unknown'}}</td> -->
+      <td>
+        <img src="~src/assets/images/{{hero.faction}}.png">{{hero.faction}}</td>
+      <td>{{hero.class}}</td>
       <td>{{hero.stats.attack}}</td>
       <td>{{hero.stats.health}}</td>
       <td>{{hero.stats.armor}}</td>
@@ -119,7 +131,7 @@
       <td>{{hero.stats.reduceDamage}}</td>
       <td>{{hero.stats.holyDamage}}</td>
       <td>
-        <button class="float-right" (click)="delete(hero._id)">
+        <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fas fa-spinner fa-pulse fa"></i>
         </button>
       </td>
@@ -139,16 +151,21 @@
           <input class="form-control" formControlName="name">
         </label>
       </div>
-      <div formArrayName="skills" class="well well-lg">
-
-      </div>
-      <!-- <div class="form-group">
+      <div formArrayName="skills" class="well well-lg"> </div>
+      <div class="form-group">
         <label class="center-block">Faction:
           <select class="form-control" formControlName="faction">
             <option *ngFor="let faction of factions" [value]="faction">{{faction}}</option>
           </select>
         </label>
-      </div> -->
+      </div>
+      <div class="form-group">
+        <label class="center-block">Class:
+          <select class="form-control" formControlName="class">
+            <option *ngFor="let class of classes" [value]="class">{{class}}</option>
+          </select>
+        </label>
+      </div>
     </div>
     <div class="col-9">
       <h4>Stats</h4>
