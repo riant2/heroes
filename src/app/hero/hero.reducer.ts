@@ -24,7 +24,9 @@ export function heroReducer(state: HeroState = initialState, action: HeroAction)
       return { ...state, syncing: true };
     case heroActions.UPDATE_LIST_SUCCESS:
       const newHeroList = { ...state.list };
-      action.heroes.forEach(hero => (newHeroList[hero._id] = hero));
+      action.heroes
+        .sort((heroA, heroB) => heroA.name.localeCompare(heroB.name))
+        .forEach(hero => (newHeroList[hero._id] = hero));
       return { ...state, list: newHeroList, syncing: false };
     case heroActions.UPDATE_LIST_ERROR:
       return { ...state, syncing: false };

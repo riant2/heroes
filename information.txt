@@ -1,0 +1,20 @@
+I just want to share some unknown issues in my experience:
+
+Energy gain when being hit is +10, for critical it is +20, while between 0-100 energy.
+After %100 energy, if hero silenced, every hit to enemy means %50 skill damage instead of +50 energy.
+After %100 energy, with every incoming normal hit, heroes gain +%10 skill damage, for incoming critical hits, +%20. (No matter they silenced or stunned, they can still gain skill damage)
+After %100 energy, if fox use her ability, you'll gain equal amount of skill damage.
+Heroes with energy steal ability is working in behind even if seems to you not working with full energy bar, by reducing the skill damage.(After 100 energy)
+Skill damage does NOT effects DoTs
+Armor break effects DoTs
+Dodge cap is %80
+Holy damage is additional attack of output damage.
+Skill damage is just addition of normal skill percentage, for eg: Aidan 6 star has %84 skill damage, with max guild tech(%40) it will be %124.
+Crit damage calculation: attack output * (1,5 + Crit damage * 2).
+For eg: You are hitting a hero with 30k. And you have % 30 crit damage. When your crit procs your damage output will be this:
+30k * (1,5 + 0,3*2) = 63k
+All monster stats are hidden but it all effected by every percentage of bonuses (It does not adding to hero stats directly.)
+For eg: Lets assume we have 20k Hp stat from monster. What we got with all %HP bonus:
+%11 from illus gears first bonus HP + %6 from illus gears second bonus HP, %20 from hero passive, %10 from basic tech, %20 from advanced tech, %5 from stone, %10 from artifact.
+This means total HP from monster is:
+20k * 1,11 * 1,06 * 1,2 * 1,1 * 1,2 * 1.05 * 1,1 = 43,05k HP

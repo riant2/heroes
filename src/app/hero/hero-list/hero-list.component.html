@@ -1,111 +1,83 @@
-<table class="table table-striped table-sm" style="table-layout:fixed;" *ngIf="heroes$ | async as heroes">
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+<table class="table table-striped table-sm" style="table-layout:fixed;">
+
+  <ng-template #heroTableRowTemplate let-hero="hero">
+    <td>
+      <img src="assets/img/10star/{{hero.name.toLowerCase()}}.png" width="30" height="30">
+    </td>
+    <td>{{hero.name}}</td>
+    <td>{{hero.stats.power}}</td>
+    <td>
+      <img src="assets/img/{{hero.faction}}.png" *ngIf="hero.faction">
+    </td>
+    <td>
+      <img src="assets/img/{{hero.class}}.png" *ngIf="hero.class">
+    </td>
+    <td class="text-right">{{hero.stats.attack}}</td>
+    <td class="text-right">{{hero.stats.health}}</td>
+    <td class="text-right">{{hero.stats.armor}} </td>
+    <td class="text-right">{{heroService.armorDamageReductionPercent(hero)}}</td>
+    <td class="text-right">{{hero.stats.speed}}</td>
+    <td class="text-right">{{hero.stats.skillDamage}}</td>
+    <td class="text-right">{{hero.stats.precision}}</td>
+    <td class="text-right">{{hero.stats.block}}</td>
+    <td class="text-right">{{hero.stats.crit}}</td>
+    <td class="text-right">{{hero.stats.critDamage}}</td>
+    <td class="text-right">{{hero.stats.armorBreak}}</td>
+    <td class="text-right">{{hero.stats.controlImmune}}</td>
+    <td class="text-right">{{hero.stats.reduceDamage}}</td>
+    <td class="text-right">{{hero.stats.holyDamage}}</td>
+    <td class="text-right">{{hero.stats.level}}</td>
+  </ng-template>
+
+  <ng-template #rotatedThLargeTemplate let-name="name">
+    <th class="rotate thousands">
+      <div>
+        <span>{{name}}</span>
+      </div>
+    </th>
+  </ng-template>
+
+  <ng-template #rotatedThSmallTemplate let-name="name">
+    <th class="rotate hundreds">
+      <div>
+        <span>{{name}} </span>
+      </div>
+    </th>
+  </ng-template>
+
   <thead>
     <tr>
-      <th class="rotate">
-        <div>
-          <span>name</span>
-        </div>
-      </th>
       <th class="rotate hundreds">
         <div>
-          <span>faction</span>
+          <span>portrait</span>
         </div>
       </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>class</span>
-        </div>
-      </th>
-      <th class="rotate thousands">
-        <div>
-          <span>attack</span>
-        </div>
-      </th>
-      <th class="rotate thousands">
-        <div>
-          <span>health</span>
-        </div>
-      </th>
-      <th class="rotate thousands">
-        <div>
-          <span>armor</span>
-        </div>
-      </th>
-      <th class="rotate thousands">
-        <div>
-          <span>speed</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>skillDamage</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>precision</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>block</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>crit</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>critDamage</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>armorBreak</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>controlImmune</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>reduceDamage</span>
-        </div>
-      </th>
-      <th class="rotate hundreds">
-        <div>
-          <span>holyDamage</span>
-        </div>
-      </th>
+      <th class="">name</th>
+      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'power' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'faction' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'class' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'attack' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'health' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor dmg reduction %' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'speed' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'skillDamage' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'precision' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'block' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'crit' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'critDamage' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armorBreak' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'controlImmune' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'reduceDamage' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'holyDamage' }"></ng-container>
+      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'level' }"></ng-container>
       <th class="hundreds"></th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let hero of heroes.list | iterateObject" (click)="select(hero)">
-      <td>{{hero.name}}</td>
-      <td>
-        <img src="assets/img/{{hero.faction}}.png" *ngIf="hero.faction">
-      </td>
-      <td>
-        <img src="assets/img/{{hero.class}}.png" *ngIf="hero.class">
-      </td>
-      <td>{{hero.stats.attack}}</td>
-      <td>{{hero.stats.health}}</td>
-      <td>{{hero.stats.armor}}</td>
-      <td>{{hero.stats.speed}}</td>
-      <td>{{hero.stats.skillDamage}}</td>
-      <td>{{hero.stats.precision}}</td>
-      <td>{{hero.stats.block}}</td>
-      <td>{{hero.stats.crit}}</td>
-      <td>{{hero.stats.critDamage}}</td>
-      <td>{{hero.stats.armorBreak}}</td>
-      <td>{{hero.stats.controlImmune}}</td>
-      <td>{{hero.stats.reduceDamage}}</td>
-      <td>{{hero.stats.holyDamage}}</td>
+  <tbody *ngIf="heroes$ | async as heroes;else loading">
+    <tr [class.table-primary]="selectedHero === hero" *ngFor="let hero of heroes.list | iterateObjectValues" (click)="selectedHero = hero">
+      <ng-container *ngTemplateOutlet="heroTableRowTemplate; context:{hero:hero}"></ng-container>
       <td>
         <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fa fa-remove" aria-hidden="true"></i>
@@ -113,145 +85,21 @@
       </td>
     </tr>
     <tr *ngIf="heroes.new as hero">
-      <td>{{hero.name}}</td>
-      <td>
-        <img src="~src/assets/images/{{hero.faction}}.png">{{hero.faction}}</td>
-      <td>{{hero.class}}</td>
-      <td>{{hero.stats.attack}}</td>
-      <td>{{hero.stats.health}}</td>
-      <td>{{hero.stats.armor}}</td>
-      <td>{{hero.stats.speed}}</td>
-      <td>{{hero.stats.skillDamage}}</td>
-      <td>{{hero.stats.precision}}</td>
-      <td>{{hero.stats.block}}</td>
-      <td>{{hero.stats.crit}}</td>
-      <td>{{hero.stats.critDamage}}</td>
-      <td>{{hero.stats.armorBreak}}</td>
-      <td>{{hero.stats.controlImmune}}</td>
-      <td>{{hero.stats.reduceDamage}}</td>
-      <td>{{hero.stats.holyDamage}}</td>
+      <ng-container *ngTemplateOutlet="heroTableRowTemplate; context:{hero:hero}"></ng-container>
       <td>
         <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fas fa-spinner fa-pulse fa"></i>
         </button>
       </td>
-
     </tr>
   </tbody>
+  <ng-template #loading>
+    <tbody>
+      <tr>
+        <td colspan="100">Loading data
+          <i class="fas fa-spinner fa-pulse fa"></i>
+        </td>
+      </tr>
+    </tbody>
+  </ng-template>
 </table>
-
-<form class="form" [formGroup]="heroForm" (submit)="submit()">
-  <div class="row">
-    <div class="col-3">
-      <h4>Create Hero</h4>
-      <input type="hidden" formControlName="__v">
-      <input type="hidden" formControlName="_id">
-      <div class="form-group">
-        <label class="center-block">Name:
-          <input class="form-control" formControlName="name">
-        </label>
-      </div>
-      <div formArrayName="skills" class="well well-lg"> </div>
-      <div class="form-group">
-        <label class="center-block">Faction:
-          <select class="form-control" formControlName="faction">
-            <option *ngFor="let faction of factions" [value]="faction">{{faction}}</option>
-          </select>
-        </label>
-      </div>
-      <div class="form-group">
-        <label class="center-block">Class:
-          <select class="form-control" formControlName="class">
-            <option *ngFor="let class of classes" [value]="class">{{class}}</option>
-          </select>
-        </label>
-      </div>
-    </div>
-    <div class="col-9">
-      <h4>Stats</h4>
-      <div class="row" formGroupName="stats">
-        <div class="col-3 form-group">
-          <label class="center-block">attack:
-            <input class="form-control" formControlName="attack">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">health:
-            <input class="form-control" formControlName="health">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">armor:
-            <input class="form-control" formControlName="armor">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">speed:
-            <input class="form-control" formControlName="speed">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">skillDamage:
-            <input class="form-control" formControlName="skillDamage">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">precision:
-            <input class="form-control" formControlName="precision">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">block:
-            <input class="form-control" formControlName="block">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">crit:
-            <input class="form-control" formControlName="crit">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">crit damage:
-            <input class="form-control" formControlName="critDamage">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">armor break:
-            <input class="form-control" formControlName="armorBreak">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">control immune:
-            <input class="form-control" formControlName="controlImmune">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">reduce damage:
-            <input class="form-control" formControlName="reduceDamage">
-          </label>
-        </div>
-        <div class="col-3 form-group">
-          <label class="center-block">holy damage:
-            <input class="form-control" formControlName="holyDamage">
-          </label>
-        </div>
-      </div>
-    </div>
-    <input type="submit"> {{heroForm.status | json}}
-  </div>
-</form>
-
-<!--
-    attack: 0,
-    health: 0,
-    armor: 0,
-    speed: 0,
-    skillDamage: 0,
-    Precision: 0,
-    block: 0,
-    crit: 0,
-  critDamage: 0,
-  armorBreak: 0,
-  controlImmune: 0,
-  reduceDamage: 0,
-  holyDamage: 0, -->

@@ -1,3 +1,48 @@
-<p>
-  hero-detail works!
-</p>
+<form class="form" [formGroup]="heroForm" (submit)="submit()">
+  <div class="row">
+    <div class="col-3">
+      <h4>Create Hero</h4>
+      <input type="hidden" formControlName="__v">
+      <input type="hidden" formControlName="_id">
+      <div class="form-group">
+        <label class="center-block">Name:
+          <input class="form-control" formControlName="name">
+        </label>
+      </div>
+      <div formArrayName="skills" class="well well-lg"> </div>
+      <div class="form-group">
+        <label class="center-block">Faction:
+          <select class="form-control" formControlName="faction">
+            <option *ngFor="let faction of factions" [value]="faction">{{faction}}</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="center-block">Class:
+          <select class="form-control" formControlName="class">
+            <option *ngFor="let class of classes" [value]="class">{{class}}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="col-9">
+      <h4>Stats</h4>
+      <div class="row" formGroupName="stats">
+
+        <ng-container *ngIf="hero.stats">
+          <div class="col-2 form-group" *ngFor="let keyValue of heroService.statDescriptions.stats | iterateObject">
+            <label class="center-block">
+              <span class="text-nowrap">{{keyValue.key}}:</span>
+              <input class="form-control form-control-sm" [formControlName]="keyValue.key">
+            </label>
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="row" formArrayName="skills"></div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="heroForm.invalid">save</button>
+    <button class="btn btn-danger" type="reset" (click)="reset()">reset</button>
+  </div>
+</form>
