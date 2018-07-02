@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
@@ -9,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
+import { ConsoleLogPipe } from './console-log.pipe';
 import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
 import { HeroListComponent } from './hero/hero-list/hero-list.component';
 import { heroReducer } from './hero/hero.reducer';
@@ -17,6 +19,7 @@ import { IterateObjectKeysPipe } from './iterate-object-keys.pipe';
 import { IterateObjectValuesPipe } from './iterate-object-values.pipe';
 import { IterateObjectPipe } from './iterate-object.pipe';
 import { localStorageMetaReducer } from './local-storage.meta-reducer';
+import { MaterialModule } from './material/material.module';
 import { stateLoggerMetaReducer } from './state-logger.meta-reducer';
 
 const appRoutes: Routes = [
@@ -47,9 +50,12 @@ const appRoutes: Routes = [
     IterateObjectValuesPipe,
     IterateObjectKeysPipe,
     CallbackComponent,
+    ConsoleLogPipe,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     ReactiveFormsModule,

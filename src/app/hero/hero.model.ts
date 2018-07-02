@@ -39,7 +39,6 @@ Groo
           attack 200%
           */
 
-// tslint:disable-next-line:max-classes-per-file
 export interface SkillEffect {
   chance?: number;
   damagePercent?: number;
@@ -50,7 +49,6 @@ export interface SkillEffect {
   resurrect?: number;
 }
 
-// tslint:disable-next-line:max-classes-per-file
 export interface HeroSkillModel {
   event: skillEvents | [skillEvents, number];
   targets: SkillTarget[];
@@ -61,7 +59,6 @@ export interface SkillEvent {
   target: SkillTarget;
 }
 
-// tslint:disable-next-line:max-classes-per-file
 export interface SkillTarget {
   target: skillTargets | [skillTargets, number];
   effects: SkillEffect[];

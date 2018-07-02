@@ -9,6 +9,11 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent implements OnInit {
   title = 'app';
   profile;
+  messages = [
+    { from: 'from', subject: 'subject', content: 'content' },
+    { from: 'from', subject: 'subject', content: 'content' },
+    { from: 'from', subject: 'subject', content: 'content' },
+  ];
 
   constructor(protected authService: AuthService) {}
 
@@ -16,9 +21,7 @@ export class AppComponent implements OnInit {
     if (this.authService.userProfile) {
       this.profile = this.authService.userProfile;
     } else {
-      this.authService.getProfile((err, profile) => {
-        this.profile = profile;
-      });
+      this.authService.updateUserProfile();
     }
   }
 

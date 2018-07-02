@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
 import { HeroState } from '../hero-state.interface';
 import { HeroModel } from '../hero.model';
 import { HeroService } from '../hero.service';
@@ -10,15 +10,29 @@ import { HeroService } from '../hero.service';
   templateUrl: './hero-list.component.html',
   styleUrls: ['./hero-list.component.css'],
 })
-export class HeroListComponent implements OnInit {
-  public heroes$: Observable<HeroState>;
+export class HeroListComponent implements OnInit, OnDestroy {
+  public heroState$: Observable<HeroState>;
+  public heroState: HeroState;
+  protected heroListDatasource: MatTableDataSource<HeroModel>;
+  private heroStateSubscription: Subscription;
   public selectedHero: HeroModel = new HeroModel();
 
-  constructor(protected heroService: HeroService, private fb: FormBuilder) {}
+  constructor(protected heroService: HeroService) {}
 
   ngOnInit() {
     this.heroService.updateList();
-    this.heroes$ = this.heroService.state$;
+    this.heroState$ = this.heroService.state$;
+
+    this.heroStateSubscription = this.heroState$.subscribe(state => {
+      this.heroListDatasource = new MatTableDataSource(Object.values(state.list));
+      this.heroState = state;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.heroStateSubscription) {
+      this.heroStateSubscription.unsubscribe();
+    }
   }
 
   delete = (heroId: string) => this.heroService.delete(heroId);
