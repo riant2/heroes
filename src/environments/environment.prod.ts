@@ -1,6 +1,6 @@
 export const environment = {
   applicationName: 'heroes',
-  apiUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:3001',
   production: true,
   simulateDelay: 2000,
   auth0: {

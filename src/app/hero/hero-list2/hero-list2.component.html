@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th [class.rotated]="column.rotated" *ngFor="let column of columns">{{ column.header() }}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let id of state.list; trackBy: trackByHeroIdAndVersion">
+      <td>{{ id }}</td>
+      <td *ngFor="let column of columns">{{ column.item(state.idHash[id]) }}</td>
+      <td><button class="btn btn-link" (click)="remove(id)">X</button></td>
+    </tr>
+  </tbody>
+</table>

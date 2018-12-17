@@ -1,8 +1,9 @@
 import { HeroModel } from './hero.model';
 
 export interface HeroState {
-  selectedHeroId: number;
-  list: { [id: number]: HeroModel };
+  selectedHeroId: string;
+  idHash: { [id: string]: HeroModel };
+  list: string[];
   syncing: boolean;
-  deleting: { [id: number]: HeroModel };
+  deleting: { [id: string]: HeroModel };
 }

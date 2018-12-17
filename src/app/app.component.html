@@ -1,44 +1,13 @@
-<mat-list>
-  <mat-list-item> Pepper </mat-list-item>
-  <mat-list-item> Salt </mat-list-item>
-  <mat-list-item> Paprika </mat-list-item>
-</mat-list>
-
-<mat-selection-list>
-  <mat-list-option *ngFor="let message of messages">
-    <h3 matLine> {{message.from}} </h3>
-    <p matLine>
-      <span> {{message.subject}} </span>
-      <span class="demo-2"> -- {{message.content}} </span>
-    </p>
-  </mat-list-option>
-</mat-selection-list>
-
-<!-- three line list -->
-<mat-list>
-  <mat-list-item *ngFor="let message of messages">
-    <h3 matLine> {{message.from}} </h3>
-    <p matLine> {{message.subject}} </p>
-    <p matLine class="demo-2"> {{message.content}} </p>
-  </mat-list-item>
-</mat-list>
-
-<button *ngIf="!authService.isAuthenticated" (click)="login()">Login</button>
-<!-- <button *ngIf="authService.isAuthenticated" (click)="logout()">Lougout</button> -->
+<app-table></app-table>
 <div class="panel panel-default profile-area">
-  <div class="panel-heading">
-    <h3>Profile</h3>
-  </div>
+  <div class="panel-heading"><h3>Profile</h3></div>
   <div class="panel-body">
-    <img src="{{profile?.picture}}" class="avatar" alt="avatar">
+    <img src="{{profile?.picture}}" class="avatar" alt="avatar" />
     <div>
-      <label>
-        <i class="glyphicon glyphicon-user"></i> Nickname</label>
+      <label> <i class="glyphicon glyphicon-user"></i> Nickname</label>
       <h3 class="nickname">{{ profile?.nickname }}</h3>
     </div>
     <pre class="full-profile">{{ profile | json }}</pre>
   </div>
 </div>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<div class="container"><router-outlet></router-outlet></div>

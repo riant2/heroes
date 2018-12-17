@@ -13,7 +13,6 @@ import { HeroService } from '../hero.service';
 export class HeroListComponent implements OnInit, OnDestroy {
   public heroState$: Observable<HeroState>;
   public heroState: HeroState;
-  protected heroListDatasource: MatTableDataSource<HeroModel>;
   private heroStateSubscription: Subscription;
   public selectedHero: HeroModel = new HeroModel();
 
@@ -24,7 +23,6 @@ export class HeroListComponent implements OnInit, OnDestroy {
     this.heroState$ = this.heroService.state$;
 
     this.heroStateSubscription = this.heroState$.subscribe(state => {
-      this.heroListDatasource = new MatTableDataSource(Object.values(state.list));
       this.heroState = state;
     });
   }

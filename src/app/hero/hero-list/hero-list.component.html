@@ -1,58 +1,32 @@
 <app-hero-detail [hero]="selectedHero"></app-hero-detail>
-<ng-container *ngIf="heroState$ | async as heroState">
-  <table mat-table matSort [dataSource]="heroListDatasource">
-
-    <ng-container matColumnDef="portrait">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Portrait</th>
-      <td mat-cell *matCellDef="let hero">
-        <img src="assets/img/10star/{{hero.name.toLowerCase()}}.png" width="30" height="30">
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let elm">{{elm.name}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['portrait', 'name']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['portrait', 'name']"></tr>
-
-  </table>
-</ng-container>
-<!-- <table class="table table-striped">
+<table class="table table-striped">
   <ng-template #heroTableRowTemplate let-hero="hero">
-    <td>
-      <img src="assets/img/10star/{{hero.name.toLowerCase()}}.png" width="30" height="30">
-    </td>
-    <td>{{hero.name}}</td>
-    <td>{{hero.stats.power}}</td>
-    <td>
-      <img src="assets/img/{{hero.faction}}.png" *ngIf="hero.faction">
-    </td>
-    <td>
-      <img src="assets/img/{{hero.class}}.png" *ngIf="hero.class">
-    </td>
-    <td class="text-right">{{hero.stats.attack}}</td>
-    <td class="text-right">{{hero.stats.health}}</td>
-    <td class="text-right">{{hero.stats.armor}} </td>
-    <td class="text-right">{{heroService.armorDamageReductionPercent(hero)}}</td>
-    <td class="text-right">{{hero.stats.speed}}</td>
-    <td class="text-right">{{hero.stats.skillDamage}}</td>
-    <td class="text-right">{{hero.stats.precision}}</td>
-    <td class="text-right">{{hero.stats.block}}</td>
-    <td class="text-right">{{hero.stats.crit}}</td>
-    <td class="text-right">{{hero.stats.critDamage}}</td>
-    <td class="text-right">{{hero.stats.armorBreak}}</td>
-    <td class="text-right">{{hero.stats.controlImmune}}</td>
-    <td class="text-right">{{hero.stats.reduceDamage}}</td>
-    <td class="text-right">{{hero.stats.holyDamage}}</td>
-    <td class="text-right">{{hero.stats.level}}</td>
+    <td><img src="assets/img/10star/{{hero.name.toLowerCase()}}.png" width="30" height="30" /></td>
+    <td>{{ hero.name }}</td>
+    <td>{{ hero.stats.power }}</td>
+    <td><img src="assets/img/{{hero.faction}}.png" *ngIf="hero.faction" /></td>
+    <td><img src="assets/img/{{hero.class}}.png" *ngIf="hero.class" /></td>
+    <td class="text-right">{{ hero.stats.attack }}</td>
+    <td class="text-right">{{ hero.stats.health }}</td>
+    <td class="text-right">{{ hero.stats.armor }}</td>
+    <td class="text-right">{{ heroService.armorDamageReductionPercent(hero) }}</td>
+    <td class="text-right">{{ hero.stats.speed }}</td>
+    <td class="text-right">{{ hero.stats.skillDamage }}</td>
+    <td class="text-right">{{ hero.stats.precision }}</td>
+    <td class="text-right">{{ hero.stats.block }}</td>
+    <td class="text-right">{{ hero.stats.crit }}</td>
+    <td class="text-right">{{ hero.stats.critDamage }}</td>
+    <td class="text-right">{{ hero.stats.armorBreak }}</td>
+    <td class="text-right">{{ hero.stats.controlImmune }}</td>
+    <td class="text-right">{{ hero.stats.reduceDamage }}</td>
+    <td class="text-right">{{ hero.stats.holyDamage }}</td>
+    <td class="text-right">{{ hero.stats.level }}</td>
   </ng-template>
 
   <ng-template #rotatedThLargeTemplate let-name="name">
     <th class="rotate thousands">
       <div>
-        <span>{{name}}</span>
+        <span>{{ name }}</span>
       </div>
     </th>
   </ng-template>
@@ -60,7 +34,7 @@
   <ng-template #rotatedThSmallTemplate let-name="name">
     <th class="rotate hundreds">
       <div>
-        <span>{{name}} </span>
+        <span>{{ name }} </span>
       </div>
     </th>
   </ng-template>
@@ -68,35 +42,75 @@
   <thead>
     <tr>
       <th class="rotate hundreds">
-        <div>
-          <span>portrait</span>
-        </div>
+        <div><span>portrait</span></div>
       </th>
       <th class="">name</th>
-      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'power' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'faction' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'class' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'attack' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'health' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor dmg reduction %' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'speed' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'skillDamage' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'precision' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'block' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'crit' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'critDamage' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armorBreak' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'controlImmune' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'reduceDamage' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'holyDamage' }"></ng-container>
-      <ng-container *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'level' }"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'power' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'faction' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'class' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'attack' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThLargeTemplate; context: { name: 'health' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armor dmg reduction %' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'speed' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'skillDamage' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'precision' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'block' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'crit' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'critDamage' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'armorBreak' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'controlImmune' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'reduceDamage' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'holyDamage' }"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="rotatedThSmallTemplate; context: { name: 'level' }"
+      ></ng-container>
       <th class="hundreds"></th>
     </tr>
   </thead>
-  <tbody *ngIf="heroes$ | async as heroes;else loading">
-    <tr [class.table-primary]="selectedHero === hero" *ngFor="let hero of heroes.list | iterateObjectValues" (click)="selectedHero = hero">
-      <ng-container *ngTemplateOutlet="heroTableRowTemplate; context:{hero:hero}"></ng-container>
+  <tbody *ngIf="heroState.list as heroes; else: loading">
+    <tr
+      [class.table-primary]="selectedHero === hero"
+      *ngFor="let hero of (heroes.list | iterateObjectValues)"
+      (click)="selectedHero = hero"
+    >
+      <ng-container
+        *ngTemplateOutlet="heroTableRowTemplate; context: { hero: hero }"
+      ></ng-container>
       <td>
         <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fa fa-remove" aria-hidden="true"></i>
@@ -104,7 +118,9 @@
       </td>
     </tr>
     <tr *ngIf="heroes.new as hero">
-      <ng-container *ngTemplateOutlet="heroTableRowTemplate; context:{hero:hero}"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="heroTableRowTemplate; context: { hero: hero }"
+      ></ng-container>
       <td>
         <button class="btn btn-sm btn-light float-right" (click)="delete(hero._id)">
           <i class="fas fa-spinner fa-pulse fa"></i>
@@ -115,10 +131,8 @@
   <ng-template #loading>
     <tbody>
       <tr>
-        <td colspan="100">Loading data
-          <i class="fas fa-spinner fa-pulse fa"></i>
-        </td>
+        <td colspan="100">Loading data <i class="fas fa-spinner fa-pulse fa"></i></td>
       </tr>
     </tbody>
   </ng-template>
-</table> -->
+</table>

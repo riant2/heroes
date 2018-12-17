@@ -54,70 +54,73 @@ export class HeroService {
     this.state$ = store.select<HeroState>('hero');
   }
 
-  private dispatch = (action: HeroAction) => this.store.dispatch(action);
+  private dispatch = (type: heroActions, payload: {} = {}) =>
+    this.store.dispatch({ type, ...payload });
 
   create = (hero: HeroModel) => {
-    this.dispatch({ type: heroActions.CREATE, hero });
+    this.dispatch(heroActions.CREATE_REQUEST, { hero });
     this.http
-      .post(`${environment.apiUrl}/hero`, hero)
+      .post(`${environment.apiUrl}/heroes`, hero)
       .pipe(
         delay(environment.simulateDelay),
         catchError((error: any) => {
-          this.dispatch({ type: heroActions.CREATE_ERROR, error });
+          this.dispatch(heroActions.CREATE_ERROR, { error });
           return empty();
         }),
       )
       .subscribe((createdHero: HeroModel) =>
-        this.dispatch({ type: heroActions.CREATE_SUCCESS, hero: createdHero }),
+        this.dispatch(heroActions.CREATE_SUCCESS, { hero: createdHero }),
       );
   };
 
   update = (hero: HeroModel) => {
-    this.dispatch({ type: heroActions.UPDATE, hero });
+    this.dispatch(heroActions.UPDATE_REQUEST, { hero });
     this.http
-      .put(`${environment.apiUrl}/hero`, hero)
+      .put(`${environment.apiUrl}/heroes`, hero)
       .pipe(
         delay(environment.simulateDelay),
         catchError((error: any) => {
-          this.dispatch({ type: heroActions.UPDATE_ERROR, error });
+          this.dispatch(heroActions.UPDATE_ERROR, { error });
           return empty();
         }),
       )
       .subscribe((createdHero: HeroModel) =>
-        this.dispatch({ type: heroActions.UPDATE_SUCCESS, hero: createdHero }),
+        this.dispatch(heroActions.UPDATE_SUCCESS, { hero: createdHero }),
       );
   };
 
   updateList = () => {
-    this.dispatch({ type: heroActions.UPDATE_LIST });
+    this.dispatch(heroActions.UPDATE_LIST_REQUEST);
     this.http
-      .get(`${environment.apiUrl}/hero`)
+      .get(`${environment.apiUrl}/heroes`)
       .pipe(
         delay(environment.simulateDelay),
         catchError((error: any) => {
-          this.dispatch({ type: heroActions.UPDATE_LIST_ERROR, error });
+          this.dispatch(heroActions.UPDATE_LIST_ERROR, { error });
           return empty();
         }),
       )
       .subscribe((heroes: HeroModel[]) =>
-        this.dispatch({ type: heroActions.UPDATE_LIST_SUCCESS, heroes }),
+        this.dispatch(heroActions.UPDATE_LIST_SUCCESS, { heroes }),
       );
   };
 
+  tempDelete(heroId: string): any {
+    this.dispatch(heroActions.TEMP_DELETE, { heroId });
+  }
+
   delete = (heroId: string) => {
-    this.dispatch({ type: heroActions.DELETE, heroId });
+    this.dispatch(heroActions.DELETE_REQUEST, { heroId });
     this.http
-      .delete(`${environment.apiUrl}/hero/${heroId}`)
+      .delete(`${environment.apiUrl}/heroes/${heroId}`)
       .pipe(
         delay(environment.simulateDelay),
         catchError((error: any) => {
-          this.dispatch({ type: heroActions.DELETE_ERROR, error });
+          this.dispatch(heroActions.DELETE_ERROR, { error });
           return empty();
         }),
       )
-      .subscribe((heroes: HeroModel[]) =>
-        this.dispatch({ type: heroActions.DELETE_SUCCESS, heroId }),
-      );
+      .subscribe((heroes: HeroModel[]) => this.dispatch(heroActions.DELETE_SUCCESS, { heroId }));
   };
 
   armorDamageReductionPercent(hero: HeroModel) {

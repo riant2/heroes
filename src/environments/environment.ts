@@ -5,7 +5,7 @@
 export const environment = {
   applicationName: 'heroes',
   production: false,
-  apiUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:3001',
   simulateDelay: 2000,
   auth0: {
     clientID: '-DyxQVtki6JNIi3SxBq7yB6OAOGho6Hh',
